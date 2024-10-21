@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+	font-family: Arial, sans-serif;
+	background-color: white;
+	margin: 0;
+	padding: 0;
+}
+* {
+	--primary: #0d5b9c;
+	--secondary: #9c2d69;
+	--hover: #06487f;
+}
+
+button {
+	background-color: var(--primary);
+	color: white;
+
+	border-radius: 5px;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+button:hover {
+	background-color: var(--hover);
+}
+button:disabled {
+	background-color: #0d5b9c;
+	opacity: 75%;
+}
+button:focus {
+	outline-color: var(--secondary);
+	outline-width: 4px;
+	outline-style: double;
+}
+
+/* .container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #fff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+	color: #333;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+input {
+	margin: 5px 0;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+button {
+	padding: 10px;
+	background-color: #28a745;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #218838;
+}
+
+.poll {
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 5px;
+}
+
+.poll-options button {
+	margin-top: 10px;
+	padding: 10px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.poll-options button:hover {
+	background-color: #0069d9;
+} */
