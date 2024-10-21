@@ -1,5 +1,3 @@
-Here’s a sample README file for your project:
-
 Polling Web App with Real-Time Voting and User Authentication
 
 Project Overview
@@ -86,35 +84,6 @@ Usage
     4.	Shareable Poll Link: Generate a link to allow other users to vote.
     5.	Vote: When another user clicks the link, they can cast a vote for one option. Only one vote can be cast per user, but they can change their vote while the link is active.
     6.	Live Voting Results: The poll creator can see voting results and percentages in real time as users vote.
-
-Folder Structure
-
-├── Frontend/ # Frontend code
-│ ├── node_modules/ # Node Modules
-│ ├── public/ # JavaScript and Tailwind files
-│ │ │ │── auth/
-│ │ │ │── scripts/
-│ │ │ │── vote/
-│ │ │ │── index.html
-│ │ │ │── output.css # Tailwind CSS Output File
-│ │ │ │── script.js # Entry Point Script File for Dashboard
-│ │ │ │── styles.css # Default CSS Styles
-| ├── tailwind.config.js # Tailwind Configuration File
-│ └──package.json # Node.js project manifest
-├── Backend/ # Backend code
-│ ├── node_modules/ # Node Modules
-│ ├── dist/ # Output JS Build Files
-│ ├── src/
-│ │ ├── contollers/
-│ │ ├── models/
-│ │ ├── helpers/
-│ │ ├── middlewares/
-│ │ ├── router/
-│ │ │ │── routes/
-│ ├── types.ts/ # Types
-│ └── index.ts/ # Socket.io logic for real-time voting
-├── .env # Environment variables (not tracked by Git)
-└── README.md # Project documentation
 
 Accessibility (WCAG Compliance)
 
