@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:8080/public</loc>
+    <lastmod>2024-10-10</lastmod>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:8080/public/auth/login</loc>
+    <lastmod>2024-10-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>http://localhost:8080/public/auth/register</loc>
+    <lastmod>2024-10-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>
