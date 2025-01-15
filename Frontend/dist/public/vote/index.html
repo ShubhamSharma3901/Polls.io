@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content="Vote on Poll"/><link rel="stylesheet" href="../public/styles.css"><link href="../public/output.css" rel="stylesheet"><style>#bg {
+            background-color: #F3F6F8;
+            opacity: 0.6;
+            background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #F3F6F8 40px), repeating-linear-gradient(#e8e8e855, #e8e8e8);
+        }
+
+        /* Dark mode styling */
+        .dark #bg {
+            background-color: #0A0B11;
+            opacity: 1;
+            background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #0A0B11 40px), repeating-linear-gradient(#1a1a1a55, #1a1a1a);
+        }
+
+
+        /* Hide the default radio button */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Styling the label to look like a selectable div */
+        .radio-label {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            outline: none;
+        }
+
+        .dark .radio-label {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #3B3C44;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            outline: none;
+            background-color: #2A2B33;
+            color: #D1D1D1;
+
+        }
+
+        /* Change border and background on hover */
+        .radio-label:hover,
+        .radio-label:focus {
+            border-color: #3498db;
+            background-color: #f0f8ff;
+            outline: none;
+        }
+
+        .dark .radio-label:hover,
+        .dark .radio-label:focus {
+            background-color: #3B3C44;
+            border-color: #4A8FCC;
+            color: #FFFFFF;
+        }
+
+        /* Change the style when radio is selected */
+        input[type="radio"]:checked+.radio-label {
+            border-color: #3498db;
+            background-color: #eaf4fc;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .dark input[type="radio"]:checked+.radio-label {
+            border-color: #8ABBEE;
+            background-color: #1F2A36;
+            color: #8ABBEE;
+            font-weight: bold;
+        }
+
+        /* Add keyboard focus styling */
+        .radio-label:focus {
+            outline: 1px solid #3498db;
+        }</style><title>Vote on Poll</title><script defer="defer" src="../../pollVoting.js"></script></head><body class="bg-white text-gray-900"><div id="bg" class="w-full min-h-full fixed z-[-10]"></div><section class="bg-primary dark:bg-black dark:outline dark:outline-slate-800 w-full flex justify-center items-center"><header id="user-header" class="w-[90%] flex justify-between items-center relative px-6 py-4"><p class="xsPhone:text-[min(7.5vh,7.5vw)] smTablet:text-[min(5vh,5vw)] tablet:text-[min(4vh,4vw)] text-white dark:text-white font-semibold">Polls.io</p><div id="btnGroup" class="smTablet:space-x-6 xsPhone:flex xsPhone:gap-2 xsPhone:text-[min(3.5vh,3.5vw)] smTablet:text-[min(2vh,2vw)]"><button id="themeToggleBtn" aria-label="Theme Toggle Button" aria-describedby="Switch Theme" class="text-primary bg-white dark:bg-gray-800 border-2 border-primary group hover:bg-neutral-100 smTablet:px-4 smTablet:py-2 xsPhone:p-2 transition-all flex justify-center items-center w-fit rounded-lg"></button> <button id="homeBtn" aria-label="Home" aria-describedby="Home Button" class="text-primary bg-white dark:bg-gray-800 border-2 border-primary group hover:bg-neutral-100 smTablet:px-4 smTablet:py-2 xsPhone:p-2 transition-all flex justify-center items-center w-fit rounded-lg"><svg class="w-6 h-6 text-gray-800 dark:text-white dark:group-hover:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/></svg></button></div></header></section><main class="w-screen h-full flex flex-col justify-center items-center gap-14"><header id="user-header" class="smTablet:w-[90%] xsPhone:w-full flex justify-between items-center relative top-10 p-6"><h1 id="pollQuestion" class="smTablet:text-[min(5vh,5vw)] tablet:text-[min(4vh,4vw)] xsPhone:text-[min(8vh,8vw)] dark:text-blue-300 font-poppins text-primary font-semibold">Loading...</h1></header><container class="grid xs:grid-cols-1 md:grid-cols-3 smTablet:w-[90%] xsPhone:w-[95%] smTablet:p-6 xsPhone:p-3 gap-6 md:grid-rows-2"><div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all"><section class="vote-section p-8 rounded-xl font-poppins transition-all bg-white dark:bg-[#1F2026] dark:outline dark:outline-neutral-700 dark:shadow-xl dark:hover:bg-[#2A2B33]"><form id="voteForm" class="space-y-4"><div id="pollOptions" class="space-y-4 font-poppins"></div><button type="submit" class="w-full py-2 px-4 dark:bg-blue-200 dark:text-hover dark:hover:bg-blue-300 dark:hover:text-hover transition">Submit Vote</button></form></section></div><div class="md:col-span-2 md:row-span-2 bg-white rounded-xl font-poppins transition-all dark:bg-[#1F2026] dark:outline dark:outline-neutral-700 dark:shadow-xl dark:hover:bg-[#2A2B33] shadow-md hover:shadow-xl"><main class="p-8"><section class="space-y-6"><h2 class="text-2xl text-primary font-poppins dark:text-blue-300">Real-Time Results</h2><div id="results" class="space-y-4 font-poppins"></div></section></main></div><div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all p-4 flex justify-center items-center font-poppins dark:bg-[#1F2026] dark:outline dark:outline-neutral-700 dark:shadow-xl dark:hover:bg-[#2A2B33]"><div class="text-secondary text-[min(8vh,8vw)] text-center dark:text-purple-300"><p class="text-lg">Total Votes:</p><p id="totalVotes"></p></div></div></container><section class="smTablet:w-[90%] xsPhone:w-[95%] smTablet:px-8 xsPhone:px-3 space-y-4 mb-10"><h2 class="text-2xl font-semibold font-poppins tracking-wide dark:text-blue-300">List of Voters</h2><table class="min-w-full bg-white rounded-xl font-poppins overflow-clip shadow-md hover:shadow-xl transition-all"><tr class="bg-primary text-white dark:bg-black"><th class="py-2 px-4">User ID</th><th class="py-2 px-4">Option Voted For</th></tr><tbody id="voterList" class="dark:bg-[#1F2026] dark:text-white"></tbody></table></section></main><script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script><script src="../../public/scripts/poll-voting.js"></script></body></html>

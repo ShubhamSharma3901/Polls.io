@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Polling App</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=light_mode" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=dark_mode" />
+
+    <link href="public/output.css" rel="stylesheet">
+    <style>
+        /* Modal styling */
+        .hidden {
+            display: none;
+        }
+
+        #modal {
+            z-index: 1000;
+        }
+
+        #modal .hidden {
+            display: none;
+        }
+
+        #bg {
+            background-color: #F3F6F8;
+            opacity: 0.6;
+            background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #F3F6F8 40px), repeating-linear-gradient(#e8e8e855, #e8e8e8);
+        }
+
+        /* Dark mode styling */
+        .dark #bg {
+            background-color: #0A0B11;
+            opacity: 1;
+            background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #0A0B11 40px), repeating-linear-gradient(#1a1a1a55, #1a1a1a);
+        }
+    </style>
+</head>
+
+<!-- <body class="bg-[radial-gradient(#e5e7eb_1.5px,transparent_1px)] [background-size:16px_16px] bg-[#F3F6F8]"> -->
+
+<body class="">
+
+    <!-- Background Pattern -->
+    <div id="bg" class="w-full min-h-full fixed z-[-10]">
+    </div>
+
+    <main class="w-screen h-full flex flex-col justify-center items-center gap-20 font-poppins mb-20">
+
+        <!-- Modal Structure (Initially Hidden) -->
+        <div id="modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 w-full ">
+            <div
+                class="bg-white rounded-lg shadow-md p-6 max-w-md w-full absolute translate-x-[-50%] left-[50%] translate-y-[-50%] top-[50%]">
+
+                <h3 id="modal-title" class="text-xl font-semibold mb-4">Modal Title</h3>
+
+                <p id="modal-message" class="text-gray-700 mb-6">Modal Message</p>
+
+                <div class="flex justify-end space-x-4">
+                    <button id="modal-cancel-btn"
+                        class="bg-gray-300 text-gray-700 hover:bg-gray-200 hover:text-gray-700 px-4 py-2 rounded hidden">Cancel</button>
+                    <button id="modal-ok-btn" class=" px-4 py-2 rounded">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Structure -->
+        <header id="user-header"
+            class="smTablet:w-[90%] xsPhone:w-[95%] flex justify-between items-center relative top-10 p-6">
+            <p
+                class="xsPhone:text-[min(8vh,8vw)] smTablet:text-[min(5vh,5vw)] text-primary dark:text-white font-semibold">
+                Polls.io</p>
+            <div id="btnGroup" aria-label="Toggle-Theme" aria-roledescription="Toggle Theme"
+                class="smTablet:space-x-6 xsPhone:flex xsPhone:gap-2 xsPhone:text-[min(3.5vh,3.5vw)] smTablet:text-[min(2vh,2vw)]">
+                <button id="themeToggleBtn" aria-label="Toggle theme" aria-pressed="false"
+                    class="text-primary bg-white dark:bg-gray-800 border-2 border-primary group hover:bg-neutral-100 px-4 py-2  transition-all flex justify-center items-center w-fit rounded-lg ">
+                    <!-- Dynamically Changing -->
+                </button>
+            </div>
+        </header>
+
+        <!-- Landing Page Structure -->
+        <section id="default-content" class="hidden flex-col justify-center items-center">
+            <div id="default-content-main" class="flex flex-col justify-center items-center gap-6">
+                <h1 class="text-[min(7vh,7vw)] dark:text-blue-200">Get Started with Polls.io</h1>
+                <p class="xsPhone:text-[min(5vh,5vw)] smTablet:text-[min(4vh,4vw)] dark:text-white">A Real Time
+                    Polling
+                    Application</p>
+            </div>
+        </section>
+
+        <!-- Main Dashboard Container Structure -->
+        <container id="main-container" class="w-full hidden flex-col justify-center items-center gap-14">
+
+            <section id="greeting" class="dark:text-white "></section>
+
+            <section id="create-poll-section " class="w-full flex flex-col justify-center items-center">
+                <!-- Open Poll Form Button -->
+                <button id="openPollFormBtn"
+                    class="rounded-full dark:bg-[#8ABBEF] dark:text-hover dark:hover:bg-[#8ABBEF] dark:hover:text-hover flex justify-center items-center gap-1 pr-3 smLaptop:text-[min(2.5vh,2.5vw)] smTablet:text-[min(2.5vh,2.5vw)] hover:shadow-none hover:scale-105 transition-all">
+                    Create
+                    <svg class="w-6 h-6 dark:text-hover text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
+
+                </button>
+
+
+
+                <!-- Poll Form (Initially Hidden) -->
+                <div id="create-poll"
+                    class="smLaptop:w-[50%] smTablet:w-[70%] tablet:w-[60%] xsPhone:w-[90%] bg-white dark:bg-[#1F2026] dark:outline dark:outline-neutral-700 dark:shadow-xl  p-8 rounded-xl shadow-md hidden transition-all">
+
+
+                    <!-- Poll form -->
+                    <form id="pollForm" aria-describedby="pollInstructions" class="space-y-6 w-full">
+                        <div id="pollInstructions" class="sr-only">
+                            Fill in the poll question and add up to 10 options.
+                        </div>
+
+                        <!-- Poll Question -->
+                        <label for="pollQuestion"
+                            class="block font-semibold xsPhone:text-[min(5vh,5vw)] smTablet:text-[min(2.5vh,2.5vw)] dark:text-white">Poll
+                            Question</label>
+                        <input type="text" id="pollQuestion"
+                            class="w-full border  border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+                            required aria-required="true" aria-describedby="questionError"
+                            placeholder="Enter your poll question here">
+                        <div id="questionError" class="text-red-600 text-sm hidden" aria-live="polite"></div>
+
+                        <!-- Options Section -->
+                        <div id="optionsContainer" class="space-y-4">
+                            <p
+                                class="block font-semibold xsPhone:text-[min(5vh,5vw)] smTablet:text-[min(2.5vh,2.5vw)] dark:text-white">
+                                Options</p>
+                            <div class="option-group space-y-4" id="optionGroup1">
+                                <input type="text" required id="option1" name="option"
+                                    class="border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 w-full"
+                                    aria-required="true" placeholder="Enter option">
+                            </div>
+                            <div class="option-group space-y-4" id="optionGroup2">
+                                <input type="text" required id="option1" name="option"
+                                    class="border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 w-full"
+                                    aria-required="true" placeholder="Enter option">
+                            </div>
+                        </div>
+
+                        <!-- Error message if user exceeds 10 options -->
+                        <div id="optionError" class="text-red-600 text-sm hidden" aria-live="polite"></div>
+
+                        <!-- Add Option Button -->
+                        <button type="button" id="addOptionBtn"
+                            class="dark:bg-blue-200 dark:text-hover dark:hover:bg-blue-300 dark:hover:text-hover px-4 py-2 rounded flex justify-center items-center gap-2"
+                            aria-label="Add another option" aria-live="polite">
+                            Option <svg class="w-6 h-6 dark:text-hover text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M5 12h14m-7 7V5" />
+                            </svg>
+                        </button>
+
+                        <!-- Close Poll Form Button -->
+
+
+                        <!-- Submit Button -->
+                        <div class="flex xsPhone:flex-col smTablet:flex-row justify-center items-center gap-2">
+                            <button type="submit"
+                                class="smTablet:w-[70%] xsPhone:w-full bg-green-100 text-green-600 hover:bg-green-200 hover:text-[#12542B] transition-all px-4 py-3 rounded "
+                                aria-label="Submit the poll">
+                                Create Poll
+                            </button>
+                            <button type="button" id="closePollFormBtn"
+                                class="smTablet:w-[30%] xsPhone:w-full bg-red-50 text-red-600 dark:bg-red-200 dark:text-red-700
+                                dark:hover:bg-red-300 dark:hover:text-red-900 px-4 py-3 rounded hover:bg-red-100 transition-all ">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </container>
+
+        <!-- Polls Listing Section -->
+        <section id="polls-list"
+            class="grid xsPhone:grid-cols-1 smLaptop:grid-cols-3 smTablet:grid-cols-2 gap-6 w-[90%]"></section>
+
+    </main>
+
+
+    <!-- All Scripts -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="public/script.js"></script>
+    <script src="public/scripts/newPoll.js"></script>
+
+</body>
+
+</html>
