@@ -1,6 +1,6 @@
-Polling Web App with Real-Time Voting and User Authentication
+# **Polling Web App with Real-Time Voting and User Authentication**
 
-Project Overview
+### Project Overview
 
 This is a Polling Web Application that allows users to:
 
@@ -27,7 +27,7 @@ Frontend:
 
     •	HTML
     •	Tailwind CSS
-    •	JavaScript
+    •	JavaScript ES6+
 
 Backend:
 
@@ -49,30 +49,33 @@ Steps:
 
     1.	Clone the repository:
 
-git clone https://github.com/your-username/your-repo-name.git
+`git clone https://github.com/your-username/your-repo-name.git`
 
     2.	Navigate to the project directory:
 
-cd your-repo-name
+`cd your-repo-name`
 
-    3.	Install backend dependencies:
+    3.	Install backend and frontend dependencies:
+cd into each project directory and run:
+`npm install`
 
-npm install
+    4.	Start the MongoDB server: 
+Make sure MongoDB is running either locally or connect to a cloud instance.
 
-    4.	Start the MongoDB server:
+    5. Set up environment variables:
+    Create a .env file in the project root with the following variables:
 
-Make sure MongoDB is running either locally or connect to a cloud instance. 5. Set up environment variables:
-Create a .env file in the project root with the following variables:
-
-DATABASE_URL=your_database_url
+`DATABASE_URL=your_database_url`
 
     6.	Start the backend server:
 
-npm run dev
+`npm run dev`
 
     7.	Run frontend:
 
-Ensure the frontend is running separately, served by your chosen method (e.g., serve, live server, Vite, etc.).
+Ensure the frontend is running separately.
+`npm run preview`
+`npm run start`
 
 Usage
 
