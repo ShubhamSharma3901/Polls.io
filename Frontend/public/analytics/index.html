@@ -1,41 +1,185 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poll Analytics</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poll Analytics</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../output.css" />
+    <style>
+      #bg {
+        background-color: #f3f6f8;
+        opacity: 0.6;
+        background-image: repeating-radial-gradient(
+            circle at 0 0,
+            transparent 0,
+            #f3f6f8 40px
+          ),
+          repeating-linear-gradient(#e8e8e855, #e8e8e8);
+      }
 
-</head>
-<body class="bg-gray-100 p-6">
-<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-  <h1 class="text-2xl font-bold text-center mb-4">Poll Analytics</h1>
+      /* Dark mode styling */
+      .dark #bg {
+        background-color: #0a0b11;
+        opacity: 1;
+        background-image: repeating-radial-gradient(
+            circle at 0 0,
+            transparent 0,
+            #0a0b11 40px
+          ),
+          repeating-linear-gradient(#1a1a1a55, #1a1a1a);
+      }
 
-  <!-- Top Polls -->
-  <div>
-    <h2 class="text-xl font-semibold mb-2">Top Voted Polls</h2>
-    <ul id="top-polls" class="space-y-2"></ul>
-  </div>
+      /* Hide the default radio button */
+      input[type="radio"] {
+        display: none;
+      }
 
-  <!-- User Engagement -->
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold mb-2">User Engagement</h2>
-    <ul id="user-engagement" class="space-y-2"></ul>
-  </div>
+      /* Styling the label to look like a selectable div */
+      .radio-label {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        outline: none;
+      }
 
-  <!-- Popular Poll Options -->
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold mb-2">Most Popular Poll Options</h2>
-    <ul id="popular-options" class="space-y-2"></ul>
-  </div>
+      .dark .radio-label {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #3b3c44;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        outline: none;
+        background-color: #2a2b33;
+        color: #d1d1d1;
+      }
 
-  <!-- Vote Trends Chart -->
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold mb-2">Vote Trends</h2>
-    <canvas id="voteChart"></canvas>
-  </div>
-</div>
+      /* Change border and background on hover */
+      .radio-label:hover,
+      .radio-label:focus {
+        border-color: #3498db;
+        background-color: #f0f8ff;
+        outline: none;
+      }
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script defer src="../scripts/analytics.js"></script>
-</body>
+      .dark .radio-label:hover,
+      .dark .radio-label:focus {
+        background-color: #3b3c44;
+        border-color: #4a8fcc;
+        color: #ffffff;
+      }
+
+      /* Change the style when radio is selected */
+      input[type="radio"]:checked + .radio-label {
+        border-color: #3498db;
+        background-color: #eaf4fc;
+        color: #3498db;
+        font-weight: bold;
+      }
+
+      .dark input[type="radio"]:checked + .radio-label {
+        border-color: #8abbee;
+        background-color: #1f2a36;
+        color: #8abbee;
+        font-weight: bold;
+      }
+
+      /* Add keyboard focus styling */
+      .radio-label:focus {
+        outline: 1px solid #3498db;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900">
+    <!-- Background Pattern -->
+    <div id="bg" class="w-full min-h-full fixed z-[-10]"></div>
+
+    <section
+      class="bg-primary dark:bg-black dark:outline dark:outline-slate-800 w-full flex justify-center items-center"
+    >
+      <header
+        id="user-header"
+        class="w-[90%] flex justify-between items-center relative px-6 py-4"
+      >
+        <p
+          class="xsPhone:text-[min(7.5vh,7.5vw)] smTablet:text-[min(5vh,5vw)] tablet:text-[min(4vh,4vw)] text-white dark:text-white font-semibold"
+        >
+          Polls.io
+        </p>
+        <div
+          id="btnGroup"
+          class="smTablet:space-x-6 xsPhone:flex xsPhone:gap-2 xsPhone:text-[min(3.5vh,3.5vw)] smTablet:text-[min(2vh,2vw)]"
+        >
+          <button
+            id="themeToggleBtn"
+            aria-label="Theme Toggle Button"
+            aria-describedby="Switch Theme"
+            class="text-primary bg-white dark:bg-gray-800 border-2 border-primary group hover:bg-neutral-100 smTablet:px-4 smTablet:py-2 xsPhone:p-2 transition-all flex justify-center items-center w-fit rounded-lg"
+          >
+            <!-- Dynamically Changing -->
+          </button>
+          <button
+            id="homeBtn"
+            aria-label="Home"
+            aria-describedby="Home Button"
+            class="text-primary bg-white dark:bg-gray-800 border-2 border-primary group hover:bg-neutral-100 smTablet:px-4 smTablet:py-2 xsPhone:p-2 transition-all flex justify-center items-center w-fit rounded-lg"
+          >
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white dark:group-hover:text-gray-800"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+    </section>
+    <div class="max-w-4xl mx-auto p-6 rounded-lg shadow-lg">
+      <h1 class="text-2xl font-bold text-center mb-4">Poll Analytics</h1>
+
+      <!-- Top Polls -->
+      <div>
+        <h2 class="text-xl font-semibold mb-2">Top Voted Polls</h2>
+        <ul id="top-polls" class="space-y-2"></ul>
+      </div>
+
+      <!-- User Engagement -->
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-2">User Engagement</h2>
+        <ul id="user-engagement" class="space-y-2"></ul>
+      </div>
+
+      <!-- Popular Poll Options -->
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-2">Most Popular Poll Options</h2>
+        <ul id="popular-options" class="space-y-2"></ul>
+      </div>
+
+      <!-- Vote Trends Chart -->
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-2">Vote Trends</h2>
+        <canvas id="voteChart"></canvas>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="../scripts/analytics.js"></script>
+  </body>
 </html>
