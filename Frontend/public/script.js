@@ -5,6 +5,7 @@ const btnGrp = document.getElementById("btnGroup");
 const loginBtn = document.createElement("button");
 const logoutBtn = document.createElement("button");
 const registerBtn = document.createElement("button");
+const analyticsBtn = document.createElement("button");
 
 const greet = document.getElementById("greeting");
 
@@ -81,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         //If user not logged in or not found
         loginBtn.innerText = "Login";
         registerBtn.innerText = "Register Now";
+        analyticsBtn.innerText = "View Analytics";
 
         registerBtn.classList.add(
           "text-primary",
@@ -92,6 +94,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           "xsPhone:px-2",
           "smTablet:px-4",
           "mt-4",
+        );
+
+        analyticsBtn.classList.add(
+          "border-2",
+          "border-primary",
+          "xsPhone:px-3",
+          "xsPhone:px-2",
+          "smTablet:px-4",
+          "dark:bg-blue-200",
+          "dark:text-blue-700",
+          "dark:hover:bg-blue-300",
+          "dark:hover:text-blue-700",
         );
 
         loginBtn.classList.add(
@@ -114,9 +128,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           window.location.href = "/public/auth/register.html";
         });
 
+        analyticsBtn.addEventListener("click", async () => {
+          window.location.href = "/public/analytics";
+        });
+
         // btnGrp.removeChild(logoutBtn);
         defaultContentWrapper.appendChild(registerBtn);
         btnGrp.appendChild(loginBtn);
+        btnGrp.appendChild(analyticsBtn);
       }
     } else {
       console.log("Cookies are disabled");
