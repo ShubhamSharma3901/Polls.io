@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 import { authRouter } from "./router/auth.router";
+import {analyticsRouter} from "./router/analytics.router";
 import { isAuthenticated } from "./middlewares/auth.middleware";
 import cookieParser from "cookie-parser";
 import { pollsRouter } from "./router/polls.router";
@@ -25,6 +26,7 @@ dotenv.config();
 
 //Routes
 app.use("/", authRouter());
+app.use("/", analyticsRouter());
 app.use("/", isAuthenticated, pollsRouter());
 
 // Connect to MongoDB
