@@ -12,6 +12,7 @@ module.exports = (env) => {
       register: "./public/scripts/register.js",
       newPoll: "./public/scripts/newPoll.js",
       pollVoting: "./public/scripts/poll-voting.js",
+      analytics: "./public/scripts/analytics.js",
     },
     mode: env.prod ? "production" : "development",
     plugins: [
@@ -38,6 +39,12 @@ module.exports = (env) => {
         inject: true,
         chunks: ["pollVoting"],
         filename: "./public/vote/index.html",
+      }),
+      new HtmlWebpackPlugin({
+        template: "./public/analytics/index.html",
+        inject: true,
+        chunks: ["analytics"],
+        filename: "./public/analytics/index.html",
       }),
       new Dotenv({
         path: `./.env`,

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poll Analytics</title>
+
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+  <h1 class="text-2xl font-bold text-center mb-4">Poll Analytics</h1>
+
+  <!-- Top Polls -->
+  <div>
+    <h2 class="text-xl font-semibold mb-2">Top Voted Polls</h2>
+    <ul id="top-polls" class="space-y-2"></ul>
+  </div>
+
+  <!-- User Engagement -->
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold mb-2">User Engagement</h2>
+    <ul id="user-engagement" class="space-y-2"></ul>
+  </div>
+
+  <!-- Popular Poll Options -->
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold mb-2">Most Popular Poll Options</h2>
+    <ul id="popular-options" class="space-y-2"></ul>
+  </div>
+
+  <!-- Vote Trends Chart -->
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold mb-2">Vote Trends</h2>
+    <canvas id="voteChart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="../scripts/analytics.js"></script>
+</body>
+</html>
