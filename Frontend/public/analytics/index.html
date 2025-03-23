@@ -151,33 +151,44 @@
         </div>
       </header>
     </section>
-    <div class="max-w-4xl mx-auto p-6 rounded-lg shadow-lg">
+    
+    <div class="w-full p-6 rounded-lg ">
       <h1 class="text-2xl font-bold text-center mb-4">Poll Analytics</h1>
-
-      <!-- Top Polls -->
-      <div>
-        <h2 class="text-xl font-semibold mb-2">Top Voted Polls</h2>
-        <ul id="top-polls" class="space-y-2"></ul>
+      
+      <!-- Main Analytics Container -->
+      <div class="flex flex-col p-6 gap-6 rounded-lg w-full ">
+          
+          <!-- Left Section (Poll Data) -->
+          <div class="flex gap-4 items-center justify-center">
+              <div class="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg w-full h-auto">
+                <h2 class="text-xl font-semibold">Top Voted Polls</h2>
+                <ul id="top-polls" class="space-y-4"></ul>
+              </div>
+  
+              <div class="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg w-full h-auto">
+                  <h2 class="text-xl font-semibold">User Engagement</h2>
+                  <ul id="user-engagement" class="space-y-4"></ul>
+              </div>
+  
+              
+          </div>
+  
+          <!-- Right Section (Chart) -->
+          <div class="flex justify-center gap-4">
+            <div class="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg w-full">
+              <h2 class="text-xl font-semibold">Most Popular Poll Options</h2>
+              <ul id="popular-options" class="space-y-4"></ul>
+            </div>
+            <div class="w-full bg-white rounded-lg shadow-lg p-6 h-full">
+              <h2 class="text-xl font-semibold mb-4">Vote Trends</h2>
+              <canvas id="voteChart"></canvas>
+            </div>
+          </div>
       </div>
 
-      <!-- User Engagement -->
-      <div class="mt-6">
-        <h2 class="text-xl font-semibold mb-2">User Engagement</h2>
-        <ul id="user-engagement" class="space-y-2"></ul>
-      </div>
-
-      <!-- Popular Poll Options -->
-      <div class="mt-6">
-        <h2 class="text-xl font-semibold mb-2">Most Popular Poll Options</h2>
-        <ul id="popular-options" class="space-y-2"></ul>
-      </div>
-
-      <!-- Vote Trends Chart -->
-      <div class="mt-6">
-        <h2 class="text-xl font-semibold mb-2">Vote Trends</h2>
-        <canvas id="voteChart"></canvas>
-      </div>
-    </div>
+      
+  </div>
+  
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="../scripts/analytics.js"></script>
