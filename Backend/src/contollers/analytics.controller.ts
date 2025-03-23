@@ -25,6 +25,31 @@ const getVoteTrends = async () => {
     ]);
 };
 
+const getUserEngagement = async () => {
+    return UserModel.aggregate([
+      { 
+        $lookup: { 
+          from: "polls", localField: "_id", foreignField: "userID", as: "userPolls"
+        } 
+      },
+      { 
+        $project: {
+          username: 1,
+          pollsCreated: { $size: "$userPolls" },
+          totalVotesCast: {
+            $sum: {
+              $map: {
+                input: "$userPolls",
+                as: "poll",
+                in: { $sum: "$$poll.options.votes" }
+              }
+            }
+          }
+        }
+      }
+    ]);
+  };
+
 const getPopularPollOptions = async () => {
     return Poll.aggregate([
         { $unwind: "$options" },
@@ -43,6 +68,18 @@ export const getTopPollsController = async (req:express.Request, res:express.Res
         return res.status(500).json({ error: "Internal Server Error(Couldn't get Top Polls)" }).end();
     }
 }
+
+export const getUserEngagementController = async(req:express.Request, res: express.Response) => {
+    try{
+        const userEngagement = await getUserEngagement();
+        return res.status(200).json(userEngagement).end();
+    }
+    catch(e){
+        console.log("Get User Engagement Controller Failed: ", e);
+        return res.status(500).json({ error: "Internal Server Error(Couldn't get Vote Trends)" }).end();
+    }
+}
+
 
 export const getPopularPollOptionsController = async (req: express.Request, res: express.Response) => {
     try {
