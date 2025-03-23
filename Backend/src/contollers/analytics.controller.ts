@@ -25,6 +25,15 @@ const getVoteTrends = async () => {
     ]);
 };
 
+const getPopularPollOptions = async () => {
+    return Poll.aggregate([
+        { $unwind: "$options" },
+        { $group: { _id: "$options.name", totalVotes: { $sum: "$options.votes" } } },
+        { $sort: { totalVotes: -1 } },
+        { $limit: 5 }
+    ]);
+};
+
 export const getTopPollsController = async (req:express.Request, res:express.Response) => {
     try {
         const topPolls = await getTopPolls();
@@ -34,6 +43,16 @@ export const getTopPollsController = async (req:express.Request, res:express.Res
         return res.status(500).json({ error: "Internal Server Error(Couldn't get Top Polls)" }).end();
     }
 }
+
+export const getPopularPollOptionsController = async (req: express.Request, res: express.Response) => {
+    try {
+        const popularOptions = await getPopularPollOptions();
+        return res.status(200).json(popularOptions).end();
+    } catch (e) {
+        console.log("Get Popular Poll Options Controller Failed: ", e);
+        return res.status(500).json({ error: "Internal Server Error (Couldn't get Popular Poll Options)" }).end();
+    }
+};
 
 export const getVoteTrendsController = async (req:express.Request, res:express.Response) => {
     try {
